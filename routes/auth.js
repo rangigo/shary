@@ -15,4 +15,19 @@ router.get(
   },
 )
 
+router.get('/verify', (req, res) => {
+  if (req.user) {
+    res.send(req.user)
+  }
+  else {
+    res.send('not auth')
+  }
+}
+)
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+
 module.exports = router
