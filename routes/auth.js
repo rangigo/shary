@@ -16,14 +16,8 @@ router.get(
 )
 
 router.get('/verify', (req, res) => {
-  if (req.user) {
-    res.send(req.user)
-  }
-  else {
-    res.send('not auth')
-  }
-}
-)
+  res.send(req.user)
+})
 
 router.get('/logout', (req, res) => {
   req.logout()

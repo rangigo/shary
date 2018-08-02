@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "font-awesome": "^4.7.0",
     "materialize-css": "^0.100.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-materialize": "^2.3.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"
   },
@@ -17,13 +19,10 @@
     "eject": "react-scripts eject"
   },
   "proxy": {
-    "/auth/google": {
+    "/auth": {
       "target": "http://localhost:5000"
     },
-    "/auth/github": {
-      "target": "http://localhost:5000"
-    },
-    "api/*": {
+    "/api": {
       "target": "http://localhost:5000"
     }
   }
