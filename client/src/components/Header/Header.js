@@ -77,7 +77,7 @@ const Header = props => {
                 className="button-collapse show-on-large"
                 style={{ border: 'none', background: 'none' }}
               >
-                <i className="fa fa-bars" />
+                <i className="fa fa-bars" style={{ fontSize: '25px' }} />
               </button>
             }
             options={{ closeOnClick: true }}

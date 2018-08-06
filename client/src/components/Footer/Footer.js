@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className="page-footer grey darken-3">
+    <footer className="page-footer grey darken-3" style={{marginTop: '20px'}}>
       <div className="container">
         <div className="row">
           <div className="col l6 s12">

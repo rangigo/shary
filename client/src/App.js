@@ -8,7 +8,7 @@ import Welcome from './components/Welcome/Welcome'
 import Header from './components/Header/Header'
 import Stories from './containers/Stories/Stories'
 import Dashboard from './components/Dashboard/Dashboard'
-import NewStory from './components/Story/NewStory/NewStory'
+import NewStory from './containers/NewStory/NewStory'
 import Footer from './components/Footer/Footer'
 import About from './components/About/About'
 
