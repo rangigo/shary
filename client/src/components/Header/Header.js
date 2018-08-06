@@ -1,11 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { SideNav } from 'react-materialize'
+import { Link } from 'react-router-dom'
 
 const Header = props => {
   console.log('auth', props.auth)
 
-  let rightNav = null
+  let rightNav = (
+    <li>
+      <Link to="/stories">
+        <i className="fa fa-book" /> Public Stories
+      </Link>
+    </li>
+  )
   let sideNavLogin = null
   let sideNavItems = null
 
@@ -13,13 +20,6 @@ const Header = props => {
     case null:
       break
     case false:
-      rightNav = (
-        <li>
-          <a href="/stories">
-            <i className="fa fa-book" /> Public Stories
-          </a>
-        </li>
-      )
       sideNavLogin = (
         <li>
           <a href="auth/google" className="btn red darken-1">
@@ -32,7 +32,7 @@ const Header = props => {
       rightNav = (
         <React.Fragment>
           <li>
-            <a href="/dashboard">Welcome</a>
+            <Link to="/dashboard">Welcome</Link>
           </li>
           <li>
             <a href="/auth/logout">
@@ -45,14 +45,14 @@ const Header = props => {
       sideNavItems = (
         <React.Fragment>
           <li>
-            <a href="/dashboard">
+            <Link to="/dashboard">
               <i className="fa fa-cog" />Dashboard
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/stories/my">
+            <Link to="/stories/my">
               <i className="fa fa-user" />My Stories
-            </a>
+            </Link>
           </li>
           <li>
             <a href="/auth/logout">
@@ -67,9 +67,9 @@ const Header = props => {
     <nav className="grey darken-3">
       <div className="container">
         <div className="nav-wrapper">
-          <a href="/" className="brand-logo center">
-            Stories
-          </a>
+          <Link to="/" className="brand-logo center">
+            Shary
+          </Link>
           <ul className="right hide-on-small-only">{rightNav}</ul>
           <SideNav
             trigger={
@@ -80,12 +80,13 @@ const Header = props => {
                 <i className="fa fa-bars" />
               </button>
             }
+            options={{ closeOnClick: true }}
           >
             {sideNavLogin}
             <li>
-              <a href="/stories">
+              <Link to="/stories">
                 <i className="fa fa-book" />Public Stories
-              </a>
+              </Link>
             </li>
             <li className="divider" />
             {sideNavItems}
