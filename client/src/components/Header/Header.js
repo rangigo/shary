@@ -22,7 +22,7 @@ const Header = props => {
     case false:
       sideNavLogin = (
         <li>
-          <a href="auth/google" className="btn red darken-1">
+          <a href="/auth/google" className="btn red darken-1">
             <i className="fa fa-google left" /> Login with google
           </a>
         </li>

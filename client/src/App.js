@@ -34,13 +34,13 @@ class App extends Component {
         <Route exact path="/stories" component={Stories} />
         <Route path="/stories/new" component={NewStory} />
         <Route path="/dashboard" component={Dashboard} />
-        {this.props.location.pathname !== '/logout' ? <Redirect to="/dashboard" /> : null}
+        <Redirect to="/dashboard" />
       </Switch>
     ) : (
       <Switch>
         <Route path="/stories" component={Stories} />
         <Route exact path="/" component={Welcome} />
-        {this.props.location.pathname !== '/auth/google' ? <Redirect to="/" /> : null}
+        <Redirect to="/" />
       </Switch>
     )
 

@@ -11,7 +11,7 @@ const Welcome = props => {
       </p>
       {props.auth !== null ? (
         props.auth ? null : (
-          <a href="auth/google" className="btn red darken-1">
+          <a href="/auth/google" className="btn red darken-1">
             <i className="fa fa-google left" /> Login with google
           </a>
         )
