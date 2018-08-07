@@ -36,14 +36,18 @@ class NewStory extends Component {
               type="checkbox"
               label="Allow Comments"
               className="filled-in"
-              defaultChecked="checked"
+              checked={true}
             />
           </Row>
 
           <Row>
             <h5 style={{ paddingLeft: '0.75rem' }}>Tell us your Story: </h5>
             <Editor
+              toolbarClassName='toolbar-editor'
               editorClassName='text-editor'
+              toolbar={{
+                options: ['inline', 'blockType', 'link']
+              }}
             />
           </Row>
 

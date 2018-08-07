@@ -1,6 +1,10 @@
 .text-editor {
-  height: 275px !important;
-  border: 1px solid #F1F1F1 !important;
-  padding: 5px !important;
+  height: 250px !important;
+  padding: 5px .75rem !important;
   border-radius: 2px !important;
+  border: 1px solid #9e9e9e;
+}
+
+.toolbar-editor {
+  border: 1px solid #9e9e9e;
 }

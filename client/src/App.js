@@ -40,7 +40,7 @@ class App extends Component {
       <Switch>
         <Route path="/stories" component={Stories} />
         <Route exact path="/" component={Welcome} />
-        <Redirect to="/" />
+        {/* <Redirect to="/" /> */}
       </Switch>
     )
 
