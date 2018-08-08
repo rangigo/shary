@@ -1,1 +1,3 @@
 export const FETCH_USER = 'FETCH_USER'
+export const FETCH_PUBLIC_STORIES = 'FETCH_PUBLIC_STORIES'
+export const SUBMIT_STORY = 'SUBMIT_STORY'

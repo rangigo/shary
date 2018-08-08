@@ -5,6 +5,17 @@ const router = express.Router()
 const Story = mongoose.model('stories')
 const User = mongoose.model('users')
 
+
+// Get public stories
+router.get('/', (req, res) => {
+  Story.find({privacy: 'public'})
+    .populate('user')
+    .then(stories => {
+      res.send(stories)
+    })
+})
+
+// Post Story Form
 router.post('/', (req, res) => {
   const { title, body, privacy, allowComments } = req.body
 
