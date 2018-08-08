@@ -3,8 +3,9 @@ import { Input, Row } from 'react-materialize'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertToRaw } from 'draft-js'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions'
 import draftToHtml from 'draftjs-to-html'
-import axios from 'axios'
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './NewStory.css'
@@ -48,8 +49,8 @@ class NewStory extends Component {
       privacy,
       allowComments,
     }
-
-    axios.post('/api/stories', newStory).then(res => this.props.history.replace(`/stories/${res.data._id}`))
+    
+    this.props.submitStory(newStory, this.props.history)
   }
 
   render() {
@@ -116,4 +117,4 @@ class NewStory extends Component {
   }
 }
 
-export default withRouter(NewStory)
+export default withRouter(connect(null, actions)(NewStory))
