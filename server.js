@@ -2,10 +2,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const cookieSession = require('cookie-session')
+const bodyParser = require('body-parser')
 
 const app = express()
-// Load User Model
+// Load Models
 require('./models/User')
+require('./models/Story')
 
 // Passport Config
 require('./config/passport')(passport)
@@ -30,6 +32,10 @@ mongoose
 // Load Routes
 const auth = require('./routes/auth')
 const users = require('./routes/users')
+const stories = require('./routes/stories')
+
+// Body Parser Middleware
+app.use(bodyParser.json())
 
 // Cookie Session
 app.use(
@@ -52,7 +58,7 @@ app.use(passport.session())
 // Production Configuration
 if (process.env.NODE_ENV === 'production') {
   // Express serves production assets (main.js or main.css)
-  app.use(express.static('client/build'))
+  app.use(express.static(path.join(__dirname, 'client/build')))
 
   // Use Routes
   app.use('/auth', auth)
@@ -68,6 +74,7 @@ if (process.env.NODE_ENV === 'production') {
   // Development Routes
   app.use('/auth', auth)
   app.use('/api/users', users)
+  app.use('/api/stories', stories)
 }
 
 const port = process.env.PORT || 5000

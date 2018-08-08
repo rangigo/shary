@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import NewStory from './containers/NewStory/NewStory'
 import Footer from './components/Footer/Footer'
 import About from './components/About/About'
+import Story from './components/Story/Story'
 
 class App extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
         <Route path="/about" component={About} />
         <Route exact path="/stories" component={Stories} />
         <Route path="/stories/new" component={NewStory} />
+        <Route path="/stories/:id" component={Story} />
         <Route path="/dashboard" component={Dashboard} />
         <Redirect to="/dashboard" />
       </Switch>
