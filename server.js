@@ -57,6 +57,8 @@ app.use(passport.session())
 
 // Production Configuration
 if (process.env.NODE_ENV === 'production') {
+  const path = require('path')
+  
   // Express serves production assets (main.js or main.css)
   app.use(express.static(path.join(__dirname, 'client/build')))
 
@@ -65,7 +67,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/api/users', users)
 
   // Express serve index.html if no routes recognized
-  const path = require('path')
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
