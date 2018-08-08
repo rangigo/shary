@@ -67,7 +67,7 @@ const Header = props => {
     <nav className="grey darken-3">
       <div className="container">
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo center">
+          <Link to="/stories" className="brand-logo center">
             Shary
           </Link>
           <ul className="right hide-on-small-only">{rightNav}</ul>
