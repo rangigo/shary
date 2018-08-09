@@ -3,12 +3,20 @@ import { connect } from 'react-redux'
 import * as actions from '../../store/actions'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../helpers'
+import { withRouter } from 'react-router-dom'
+import axios from 'axios'
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.fetchMyStories()
   }
 
+  onDeleteSubmit = (id) => {
+    axios.delete(`/api/stories/${id}`)
+      .then(() => this.props.fetchMyStories())
+      .catch(err => console.log(err))
+  }
+ 
   render() {
     const { user, myStories } = this.props
 
@@ -40,7 +48,7 @@ class Dashboard extends Component {
                 >
                   <i className="fa fa-pencil" /> Edit
                 </Link>
-                <button className="btn red" style={{marginLeft: '7px'}}>
+                <button className="btn red" style={{marginLeft: '7px'}} onClick={() => this.onDeleteSubmit(story._id)}>
                   <i className="fa fa-remove"></i> Delete
                 </button>
               </td>
@@ -69,4 +77,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   actions,
-)(Dashboard)
+)(withRouter(Dashboard))

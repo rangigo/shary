@@ -12,11 +12,6 @@ export default (state = initState, action) => {
         ...state,
         publicStories: action.publicStories
       }
-    case actionTypes.SUBMIT_STORY:
-      return {
-        ...state,
-        newStory: action.newStory
-      }
     case actionTypes.FETCH_PUBLIC_STORIES_START:
       return {
         ...state,

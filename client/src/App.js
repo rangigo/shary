@@ -23,7 +23,7 @@ class App extends Component {
     // Add button if user is authenticated
     const addButton = this.props.user ? (
       <div className="fixed-action-btn">
-        <Link to="stories/new" className="btn-floating btn-large red">
+        <Link to="/stories/new" className="btn-floating btn-large red">
           <i className="fa fa-plus" />
         </Link>
       </div>
