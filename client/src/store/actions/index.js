@@ -4,5 +4,6 @@ export {
 
 export {
   fetchPublicStories,
-  submitStory
+  submitStory,
+  fetchMyStories
 } from './stories'

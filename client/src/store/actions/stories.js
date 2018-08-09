@@ -23,6 +23,21 @@ export const fetchPublicStories = () => async dispatch => {
   }
 }
 
+export const fetchMyStories = () => async dispatch =>  {
+
+  try {
+    const res = await axios.get('/api/stories/watashi')
+    dispatch({
+      type: actionTypes.FETCH_MY_STORIES,
+      myStories: res.data
+    })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+
+
 export const submitStory = (newStory, history) => async dispatch => {
   try {
     const res = await axios.post('/api/stories', newStory)

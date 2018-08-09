@@ -22,6 +22,11 @@ export default (state = initState, action) => {
         ...state,
         loading: true
       }
+    case actionTypes.FETCH_MY_STORIES:
+      return {
+        ...state,
+        myStories: action.myStories
+      }
     default: 
       return state
   }

@@ -6,6 +6,7 @@ const Story = mongoose.model('stories')
 const User = mongoose.model('users')
 
 
+
 // Get public stories
 router.get('/', (req, res) => {
   Story.find({privacy: 'public'})
@@ -13,6 +14,12 @@ router.get('/', (req, res) => {
     .then(stories => {
       res.send(stories)
     })
+})
+
+// Get stories from current user
+router.get('/watashi', (req, res) => {
+  Story.find({user: req.user.id})
+    .then(stories => res.send(stories))
 })
 
 // Get single story
@@ -24,11 +31,7 @@ router.get('/:id', (req, res) => {
   .then(story => res.send(story))
 })
 
-// Get stories from current user
-router.get('/myStories', (req, res) => {
-  Story.find({user: req.user.id})
-    .then(stories => res.send(stories))
-})
+
 
 // Post Story Form
 router.post('/', (req, res) => {
