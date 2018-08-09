@@ -2,13 +2,21 @@ import * as actionTypes from './actionTypes'
 
 import axios from 'axios'
 
+export const fetchPublicStoriesStart = () => ({
+  type: actionTypes.FETCH_PUBLIC_STORIES_START
+})
+
+ 
 export const fetchPublicStories = () => async dispatch => {
+  dispatch(fetchPublicStoriesStart())
+  
   try {
     const res = await axios.get('/api/stories')
 
     dispatch({
       type: actionTypes.FETCH_PUBLIC_STORIES,
-      publicStories: res.data
+      publicStories: res.data,
+      loading: false
     })
   } catch(err) {
     console.log(err)

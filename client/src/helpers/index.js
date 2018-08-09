@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const truncate = (str, len) => {
   if (str.length > len && str.length > 0) {
     let newStr = str + ' '
@@ -10,3 +12,5 @@ export const truncate = (str, len) => {
 }
 
 export const stripTags = (str) => str.replace(/<(?:.|\n)*?>/gm, '')
+
+export const formatDate = (date, format) => moment(date).format(format)

@@ -9,13 +9,13 @@ const Welcome = props => {
         Shary is where you can share your stories with the
         world or keep it private as your own personal diary.
       </p>
-      {props.auth !== null ? (
-        props.auth ? null : (
+      {/* {props.auth !== null ? (
+        props.auth ? null : ( */}
           <a href="/auth/google" className="btn red darken-1">
             <i className="fa fa-google left" /> Login with google
           </a>
-        )
-      ) : null}
+      {/*   )
+       ) : null} */}
     </div>
   )
 }

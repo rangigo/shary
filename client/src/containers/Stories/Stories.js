@@ -9,18 +9,20 @@ export class Stories extends Component {
   }
 
   render() {
-    const { publicStories } = this.props
+    const { publicStories, loading } = this.props
 
     const renderStories =
       publicStories.length > 0 ? (
         publicStories.map(story => <Story {...story} key={story._id} />)
+      ) : loading ? (
+        <p>Loading...</p>
       ) : (
         <p>No stories found</p>
       )
 
     return (
       <div className="row">
-        <h1>Stories</h1>
+        <h1 className='center'>Stories</h1>
         {renderStories}
       </div>
     )
@@ -29,6 +31,7 @@ export class Stories extends Component {
 
 const mapStateToProps = state => ({
   publicStories: state.stories.publicStories,
+  loading: state.stories.loading,
 })
 
 export default connect(

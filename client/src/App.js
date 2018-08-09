@@ -7,12 +7,12 @@ import './App.css'
 import Welcome from './components/Welcome/Welcome'
 import Header from './components/Header/Header'
 import Stories from './containers/Stories/Stories'
-import Dashboard from './components/Dashboard/Dashboard'
-import NewStory from './containers/NewStory/NewStory'
+import Dashboard from './containers/Dashboard/Dashboard'
+import NewStory from './containers/Stories/NewStory/NewStory'
 import Footer from './components/Footer/Footer'
 import About from './components/About/About'
-import FullStory from './components/FullStory/FullStory'
-import EditStory from './containers/EditStory/EditStory'
+import FullStory from './containers/Stories/FullStory/FullStory'
+import EditStory from './containers/Stories/EditStory/EditStory'
 
 class App extends Component {
   componentDidMount() {
@@ -42,7 +42,8 @@ class App extends Component {
       </Switch>
     ) : (
       <Switch>
-        <Route path="/stories" component={Stories} />
+        <Route exact path="/stories" component={Stories} />
+        <Route path="/stories/:id" component={FullStory} />
         <Route exact path="/" component={Welcome} />
         <Redirect to="/" />
       </Switch>

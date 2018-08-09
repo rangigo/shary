@@ -15,6 +15,21 @@ router.get('/', (req, res) => {
     })
 })
 
+// Get single story
+router.get('/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .populate('user')
+  .then(story => res.send(story))
+})
+
+// Get stories from current user
+router.get('/myStories', (req, res) => {
+  Story.find({user: req.user.id})
+    .then(stories => res.send(stories))
+})
+
 // Post Story Form
 router.post('/', (req, res) => {
   const { title, body, privacy, allowComments } = req.body

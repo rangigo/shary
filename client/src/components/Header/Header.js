@@ -15,6 +15,11 @@ const Header = props => {
   )
   let sideNavLogin = null
   let sideNavItems = null
+  let logoLink = (
+    <Link to="/" className="brand-logo center">
+      Shary
+    </Link>
+  )
 
   switch (props.auth) {
     case null:
@@ -41,35 +46,42 @@ const Header = props => {
           </li>
         </React.Fragment>
       )
+      
       sideNavLogin = null
+
       sideNavItems = (
         <React.Fragment>
           <li>
             <Link to="/dashboard">
-              <i className="fa fa-cog" />Dashboard
+              <i className="fa fa-cog" />
+              Dashboard
             </Link>
           </li>
           <li>
             <Link to="/stories/my">
-              <i className="fa fa-user" />My Stories
+              <i className="fa fa-user" />
+              My Stories
             </Link>
           </li>
           <li>
             <a href="/auth/logout">
-              <i className="fa fa-sign-out" />Logout
+              <i className="fa fa-sign-out" />
+              Logout
             </a>
           </li>
         </React.Fragment>
       )
+
+      logoLink = <Link to="/stories" className="brand-logo center">
+      Shary
+    </Link>
   }
 
   return (
     <nav className="grey darken-3">
       <div className="container">
         <div className="nav-wrapper">
-          <Link to="/stories" className="brand-logo center">
-            Shary
-          </Link>
+          {logoLink}
           <ul className="right hide-on-small-only">{rightNav}</ul>
           <SideNav
             trigger={
@@ -85,7 +97,8 @@ const Header = props => {
             {sideNavLogin}
             <li>
               <Link to="/stories">
-                <i className="fa fa-book" />Public Stories
+                <i className="fa fa-book" />
+                Public Stories
               </Link>
             </li>
             <li className="divider" />

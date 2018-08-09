@@ -4,7 +4,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertToRaw } from 'draft-js'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from '../../store/actions'
+import * as actions from '../../../store/actions'
 import draftToHtml from 'draftjs-to-html'
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'

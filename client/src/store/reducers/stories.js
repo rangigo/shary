@@ -17,6 +17,11 @@ export default (state = initState, action) => {
         ...state,
         newStory: action.newStory
       }
+    case actionTypes.FETCH_PUBLIC_STORIES_START:
+      return {
+        ...state,
+        loading: true
+      }
     default: 
       return state
   }
