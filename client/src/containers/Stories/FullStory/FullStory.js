@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ReactHtmlParser from 'react-html-parser'
 import axios from 'axios'
 import { formatDate } from '../../../helpers'
+import Comments from '../../Comments/Comments'
 
 export class FullStory extends Component {
   state = {
@@ -10,10 +11,6 @@ export class FullStory extends Component {
   }
 
   componentDidMount() {
-    this.loadStory()
-  }
-
-  loadStory = () => {
     if (this.props.match.params.id) {
       axios
         .get(`/api/stories/${this.props.match.params.id}`)
@@ -33,33 +30,49 @@ export class FullStory extends Component {
     }
 
     const { loadStory } = this.state
-    
 
     if (loadStory) {
+      const comments = loadStory.allowComments ? (
+        <Comments storyId={this.props.match.params.id}/>
+      ) : null
+
       post = (
         <div className="row">
-          <div className="col s12 m9">
+          <div className="col s12 m8">
             <h3>{loadStory.title}</h3>
             <div className="card story">
               <div className="card-content">
-                <span className="card-title">{formatDate(loadStory.date, 'MMMM Do YYYY')}</span>
+                <span className="card-title">
+                  {formatDate(loadStory.date, 'MMMM Do YYYY')}
+                </span>
                 {ReactHtmlParser(loadStory.body)}
               </div>
             </div>
+            {comments}
           </div>
-          <div className="col s12 m3">
+          <div className="col s12 m4">
             <div className="card center-align">
               <div className="card-content">
-                <span className="card-title">{loadStory.user.firstName} {loadStory.user.lastName}</span>
-                <img src={loadStory.user.image} alt="avatar" className='circle responsive-img' />
+                <span className="card-title">
+                  {loadStory.user.firstName} {loadStory.user.lastName}
+                </span>
+                <img
+                  src={loadStory.user.image}
+                  alt="avatar"
+                  className="circle responsive-img"
+                />
               </div>
               <div className="card-action">
-                <Link to={`/stories/user/${loadStory.user._id}`}>More From {loadStory.user.firstName}</Link> 
+                <Link to={`/stories/user/${loadStory.user._id}`}>
+                  More From {loadStory.user.firstName}
+                </Link>
               </div>
             </div>
           </div>
         </div>
       )
+    } else {
+      post = <p>Something wrong...</p>
     }
 
     return post
