@@ -4,23 +4,18 @@ import * as actions from '../../store/actions'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../helpers'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.fetchMyStories()
   }
 
-  onDeleteSubmit = (id) => {
-    axios.delete(`/api/stories/${id}`)
-      .then(() => console.log('succeed'))
-      .catch(err => console.log(err))
-  }
- 
   render() {
-    const { user, myStories } = this.props
+    const { user, myStories, loading } = this.props
 
-    const renderStories = myStories ? (
+    const renderStories = loading ? (
+      <p>Loading...</p>
+    ) : myStories && myStories.length > 0 ? (
       <table className="striped">
         <thead>
           <tr>
@@ -48,8 +43,12 @@ class Dashboard extends Component {
                 >
                   <i className="fa fa-pencil" /> Edit
                 </Link>
-                <button className="btn red" style={{marginLeft: '7px'}} onClick={() => this.props.deleteStory(story._id)}>
-                  <i className="fa fa-remove"></i> Delete
+                <button
+                  className="btn red"
+                  style={{ marginLeft: '7px' }}
+                  onClick={() => this.props.deleteStory(story._id)}
+                >
+                  <i className="fa fa-remove" /> Delete
                 </button>
               </td>
             </tr>
@@ -72,6 +71,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   user: state.auth,
   myStories: state.stories.myStories,
+  loading: state.stories.loading,
 })
 
 export default connect(

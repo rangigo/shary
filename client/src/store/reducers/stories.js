@@ -10,7 +10,8 @@ export default (state = initState, action) => {
     case actionTypes.FETCH_PUBLIC_STORIES:
       return {
         ...state,
-        publicStories: action.publicStories
+        publicStories: action.publicStories,
+        loading: false
       }
     case actionTypes.FETCH_PUBLIC_STORIES_START:
       return {
@@ -20,10 +21,15 @@ export default (state = initState, action) => {
     case actionTypes.FETCH_MY_STORIES:
       return {
         ...state,
-        myStories: action.myStories
+        myStories: action.myStories,
+        loading: false
+      }
+    case actionTypes.FETCH_MY_STORIES_START:
+      return {
+        ...state,
+        loading: true
       }
     case actionTypes.DELETE_STORY:
-      console.log(state.myStories)
       return {
         ...state,
         myStories: state.myStories.filter(story => story._id !== action.deleteStoryId)

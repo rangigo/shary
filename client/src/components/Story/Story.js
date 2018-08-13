@@ -17,7 +17,7 @@ const Story = ({ title, body, user, _id }) => {
         </div>
         <div className="card-content center-align">
           <h5>{title}</h5>
-          <p className="story-text">{stripTags(truncate(body, 150))}</p>
+          <p className="story-text">{truncate(stripTags(body), 150)}</p>
           <br />
           <div className="chip">
             <img src={user.image} alt="avatar" />

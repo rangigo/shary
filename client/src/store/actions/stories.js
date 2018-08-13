@@ -15,15 +15,20 @@ export const fetchPublicStories = () => async dispatch => {
 
     dispatch({
       type: actionTypes.FETCH_PUBLIC_STORIES,
-      publicStories: res.data,
-      loading: false
+      publicStories: res.data
     })
   } catch(err) {
     console.log(err)
   }
 }
 
+export const fetchMyStoriesStart = () => ({
+  type: actionTypes.FETCH_MY_STORIES_START
+})
+
+
 export const fetchMyStories = () => async dispatch =>  {
+  dispatch(fetchMyStoriesStart())
 
   try {
     const res = await axios.get('/api/stories/watashi')

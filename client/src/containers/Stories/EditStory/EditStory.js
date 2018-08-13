@@ -83,7 +83,7 @@ class EditStory extends Component {
     // this.props.history.replace(`/stories/${res.data._id}`)
 
     axios.put(`/api/stories/${this.props.match.params.id}`, updatedStory)
-      .then(res => this.props.history.replace('/dashboard'))
+      .then(res => this.props.history.replace(`/stories/${this.props.match.params.id}`))
   }
 
   render() {
@@ -141,6 +141,7 @@ class EditStory extends Component {
               toolbar={{
                 options: ['inline', 'blockType', 'link'],
               }}
+              stripPastedStyles={true}
               onEditorStateChange={this.editorStateChange}
             />
           </Row>

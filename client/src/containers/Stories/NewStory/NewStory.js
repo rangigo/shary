@@ -107,6 +107,7 @@ class NewStory extends Component {
               toolbar={{
                 options: ['inline', 'blockType', 'link'],
               }}
+              stripPastedStyles={true}
               onEditorStateChange={this.editorStateChange}
             />
           </Row>

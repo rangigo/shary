@@ -26,7 +26,12 @@ router.get('/:id', (req, res) => {
     _id: req.params.id
   })
   .populate('user')
+  .populate('comments.commentUser')
   .then(story => res.send(story))
+  .catch(() => {
+    res.status(500)
+    res.send('No results found')
+  })
 })
 
 // Post Story Form
@@ -74,6 +79,25 @@ router.delete('/:id', (req, res) => {
     _id: req.params.id
   })
     .then(() => res.send('deleted'))
+})
+
+// Add comment
+router.post('/comments/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .then(story => {
+    const newComment = {
+      commentBody: req.body.commentBody,
+      commentUser: req.user.id
+    }
+
+    // Add to comments array
+    story.comments.unshift(newComment)
+    
+    story.save()
+      .then(story => res.send(story))
+  })
 })
 
 module.exports = router
