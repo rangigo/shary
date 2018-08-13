@@ -4,5 +4,6 @@ export {
 
 export {
   fetchPublicStories,
-  fetchMyStories
+  fetchMyStories,
+  deleteStory
 } from './stories'

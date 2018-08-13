@@ -22,6 +22,12 @@ export default (state = initState, action) => {
         ...state,
         myStories: action.myStories
       }
+    case actionTypes.DELETE_STORY:
+      console.log(state.myStories)
+      return {
+        ...state,
+        myStories: state.myStories.filter(story => story._id !== action.deleteStoryId)
+      }
     default: 
       return state
   }

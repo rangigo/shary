@@ -58,14 +58,13 @@ router.put('/:id', (req, res) => {
     const { title, body, privacy, allowComments } = req.body
   
     // Update new values
-
     story.title = title
     story.body = body
     story.privacy = privacy
     story.allowComments = allowComments
 
     story.save()
-      .then(story => res.send('updated'))
+      .then(story => res.send(story))
   })
 })
 

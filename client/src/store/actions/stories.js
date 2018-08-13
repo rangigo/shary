@@ -35,3 +35,16 @@ export const fetchMyStories = () => async dispatch =>  {
     console.log(err)
   }
 }
+
+export const deleteStory = (id) => async dispatch => {
+  try {
+    await axios.delete(`/api/stories/${id}`)
+
+    dispatch({
+      type: actionTypes.DELETE_STORY,
+      deleteStoryId: id
+    })
+  } catch(err){
+    console.log(err)
+  }
+}

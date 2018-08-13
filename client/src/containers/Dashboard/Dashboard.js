@@ -13,7 +13,7 @@ class Dashboard extends Component {
 
   onDeleteSubmit = (id) => {
     axios.delete(`/api/stories/${id}`)
-      .then(() => this.props.fetchMyStories())
+      .then(() => console.log('succeed'))
       .catch(err => console.log(err))
   }
  
@@ -48,7 +48,7 @@ class Dashboard extends Component {
                 >
                   <i className="fa fa-pencil" /> Edit
                 </Link>
-                <button className="btn red" style={{marginLeft: '7px'}} onClick={() => this.onDeleteSubmit(story._id)}>
+                <button className="btn red" style={{marginLeft: '7px'}} onClick={() => this.props.deleteStory(story._id)}>
                   <i className="fa fa-remove"></i> Delete
                 </button>
               </td>
