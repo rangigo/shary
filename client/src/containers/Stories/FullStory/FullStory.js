@@ -4,6 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import axios from 'axios'
 import { formatDate } from '../../../helpers'
 import Comments from '../../Comments/Comments'
+import FullComment from '../../../components/FullComment/FullComment'
 
 export class FullStory extends Component {
   state = {
@@ -33,7 +34,12 @@ export class FullStory extends Component {
 
     if (loadStory) {
       const comments = loadStory.allowComments ? (
-        <Comments storyId={this.props.match.params.id}/>
+        <React.Fragment>
+          <Comments storyId={this.props.match.params.id} />
+          {loadStory.comments.map(comment => (
+            <FullComment {...comment} key={comment._id} />
+          ))}
+        </React.Fragment>
       ) : null
 
       post = (
