@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions'
 import Story from '../../components/Story/Story'
+import Loader from '../../components/Loader/Loader'
 
 export class Stories extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ export class Stories extends Component {
       publicStories.length > 0 ? (
         publicStories.map(story => <Story {...story} key={story._id} />)
       ) : loading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <p>No stories found</p>
       )

@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initState = {
   publicStories: [],
-  newStory: {}
+  myStories: [],
+  error: null
 }
 
 export default (state = initState, action) => {
@@ -28,6 +29,27 @@ export default (state = initState, action) => {
       return {
         ...state,
         loading: true
+      }
+    case actionTypes.FETCH_SINGLE_STORY_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case actionTypes.FETCH_SINGLE_STORY:
+      return {
+        ...state,
+        loading: false,
+        singleStory: action.singleStory
+      }
+    case actionTypes.FETCH_SINGLE_STORY_FAIL:
+      return {
+        ...state,
+        error: action.err
+      }
+    case actionTypes.CLEAR_SINGLE_STORY:
+      return {
+        ...state,
+        singleStory: null
       }
     case actionTypes.DELETE_STORY:
       return {

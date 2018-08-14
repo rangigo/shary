@@ -10,6 +10,7 @@ import {
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import draftToHtml from 'draftjs-to-html'
+import Loader from '../../../components/Loader/Loader'
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -90,7 +91,7 @@ class EditStory extends Component {
     const { title, allowComments, privacy, editorState, loading } = this.state
 
     return loading ? (
-      <p>Loading...</p>
+      <Loader/>
     ) : (
       <div>
         <h1>Edit Story</h1>

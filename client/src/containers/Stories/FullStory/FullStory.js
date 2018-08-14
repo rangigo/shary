@@ -1,36 +1,32 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ReactHtmlParser from 'react-html-parser'
-import axios from 'axios'
 import { formatDate } from '../../../helpers'
 import Comments from '../../Comments/Comments'
 import FullComment from '../../../components/FullComment/FullComment'
+import Loader from '../../../components/Loader/Loader'
+import { connect } from 'react-redux'
+import * as actions from '../../../store/actions/index' 
 
 export class FullStory extends Component {
-  state = {
-    loadStory: null,
-  }
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      axios
-        .get(`/api/stories/${this.props.match.params.id}`)
-        .then(res =>
-          this.setState({
-            loadStory: res.data,
-          }),
-        )
-        .catch(err => console.log(err))
+      this.props.fetchSingleStory(this.props.match.params.id)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearSingleStory()
   }
 
   render() {
     let post = <p>Something wrong...</p>
     if (this.props.match.params.id) {
-      post = <p>Loading...</p>
+      post = <Loader />
     }
 
-    const { loadStory } = this.state
+    const { loadStory, err } = this.props
 
     if (loadStory) {
       const comments = loadStory.allowComments ? (
@@ -77,12 +73,20 @@ export class FullStory extends Component {
           </div>
         </div>
       )
-    } else {
-      post = <p>Something wrong...</p>
+    } 
+     
+    if ( err ) {
+      post = <p>Something wrong!</p>
     }
 
     return post
   }
 }
 
-export default FullStory
+const mapStateToProps = state => ({
+  loading: state.stories.loading,
+  loadStory: state.stories.singleStory,
+  err: state.stories.error
+})
+
+export default connect(mapStateToProps, actions)(FullStory)

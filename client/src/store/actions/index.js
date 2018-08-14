@@ -5,5 +5,8 @@ export {
 export {
   fetchPublicStories,
   fetchMyStories,
-  deleteStory
+  deleteStory,
+  fetchSingleStory,
+  clearSingleStory,
+  addComment
 } from './stories'

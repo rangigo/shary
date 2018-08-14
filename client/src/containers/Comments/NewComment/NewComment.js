@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Row, Input } from 'react-materialize'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import * as actions from '../../../store/actions/index'
 
 export class NewComment extends Component {
   state = {
@@ -24,10 +25,11 @@ export class NewComment extends Component {
     const newComment = {
       commentBody,
     }
-
-    axios
-      .post(`/api/stories/comments/${this.props.storyId}`, newComment)
-      .then(res => this.props.history.replace(`/stories/${res.data._id}`))
+    
+    this.props.addComment(newComment, this.props.match.params.id)
+    this.setState({
+      commentBody: ''
+    })
   }
 
   render() {
@@ -52,4 +54,4 @@ export class NewComment extends Component {
   }
 }
 
-export default withRouter(NewComment)
+export default connect(null, actions)(withRouter(NewComment))

@@ -4,6 +4,7 @@ import * as actions from '../../store/actions'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../helpers'
 import { withRouter } from 'react-router-dom'
+import Loader from '../../components/Loader/Loader'
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Dashboard extends Component {
     const { user, myStories, loading } = this.props
 
     const renderStories = loading ? (
-      <p>Loading...</p>
+      <Loader />
     ) : myStories && myStories.length > 0 ? (
       <table className="striped">
         <thead>

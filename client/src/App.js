@@ -43,6 +43,7 @@ class App extends Component {
     ) : (
       <Switch>
         <Route exact path="/stories" component={Stories} />
+        <Redirect from='/stories/edit/:id' to='/stories' />
         <Route path="/stories/:id" component={FullStory} />
         <Route exact path="/" component={Welcome} />
         <Redirect to="/" />

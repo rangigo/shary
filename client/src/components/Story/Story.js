@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { truncate, stripTags } from '../../helpers'
-import './Story.css'
 
 const Story = ({ title, body, user, _id }) => {
   return (
@@ -16,8 +15,8 @@ const Story = ({ title, body, user, _id }) => {
           </Link>
         </div>
         <div className="card-content center-align">
-          <h5>{title}</h5>
-          <p className="story-text">{truncate(stripTags(body), 150)}</p>
+          <h5 >{title}</h5>
+          <p style={{height: '125px'}}>{truncate(stripTags(body), 150)}</p>
           <br />
           <div className="chip">
             <img src={user.image} alt="avatar" />
