@@ -25,12 +25,20 @@ export class FullStory extends Component {
       post = <Loader />
     }
 
-    const { loadStory, err, loading } = this.props
+    const {
+      loadStory,
+      err,
+      loading,
+      user,
+      match: {
+        params: { id },
+      },
+    } = this.props
 
     if (loadStory) {
       const comments = loadStory.allowComments ? (
         <React.Fragment>
-          <Comments storyId={this.props.match.params.id} />
+          <Comments storyId={id} />
           {loading ? (
             <Loader />
           ) : (
@@ -44,7 +52,17 @@ export class FullStory extends Component {
       post = (
         <div className="row">
           <div className="col s12 m8">
-            <h3>{loadStory.title}</h3>
+            <h3>
+              {loadStory.title}
+              {' '}
+              {user._id === loadStory.user._id ? (
+                <small>
+                  <Link to={`/stories/edit/${id}`}>
+                    <i className="fa fa-pencil" />
+                  </Link>
+                </small>
+              ) : null}
+            </h3>
             <div className="card story">
               <div className="card-content">
                 <span className="card-title">
@@ -90,6 +108,7 @@ const mapStateToProps = state => ({
   loading: state.stories.loading,
   loadStory: state.stories.singleStory,
   err: state.stories.error,
+  user: state.auth.user,
 })
 
 export default connect(

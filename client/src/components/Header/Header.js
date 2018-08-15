@@ -51,6 +51,7 @@ const Header = props => {
                   src={user.image}
                   alt=""
                 />
+                {user.firstName}
               </Link>
             </li>
             <li>

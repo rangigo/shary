@@ -10,11 +10,11 @@ export class Stories extends Component {
   }
 
   render() {
-    const { publicStories, loading } = this.props
+    const { publicStories, loading, user } = this.props
 
     const renderStories =
       publicStories.length > 0 ? (
-        publicStories.map(story => <Story {...story} key={story._id} />)
+        publicStories.map(story => <Story {...story} editable={story.user._id === user._id} key={story._id} />)
       ) : loading ? (
         <Loader />
       ) : (
@@ -33,6 +33,7 @@ export class Stories extends Component {
 const mapStateToProps = state => ({
   publicStories: state.stories.publicStories,
   loading: state.stories.loading,
+  user: state.auth.user
 })
 
 export default connect(

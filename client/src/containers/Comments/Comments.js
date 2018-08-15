@@ -4,13 +4,13 @@ import NewComment from './NewComment/NewComment'
 
 export class Comments extends Component {
   render() {
-    const { storyId } = this.props
+    const { storyId, user } = this.props
 
     return (
       <div className="card">
         <div className="card-content">
           <span className="card-title">Comments</span>
-          {this.props.user ? (
+          {user ? (
             <NewComment storyId={storyId}/>
           ) : (
             <p>
@@ -24,7 +24,7 @@ export class Comments extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth,
+  user: state.auth.user,
 })
 
 export default connect(
