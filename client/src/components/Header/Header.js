@@ -4,7 +4,9 @@ import { SideNav } from 'react-materialize'
 import { Link } from 'react-router-dom'
 
 const Header = props => {
-  console.log('auth', props.auth)
+  const { user, loading } = props
+
+  console.log('user', user)
 
   let rightNav = (
     <li>
@@ -21,60 +23,75 @@ const Header = props => {
     </Link>
   )
 
-  switch (props.auth) {
-    case null:
-      break
-    case false:
-      sideNavLogin = (
-        <li>
-          <a href="/auth/google" className="btn red darken-1">
-            <i className="fa fa-google left" /> Login with google
-          </a>
-        </li>
-      )
-      break
-    default:
-      rightNav = (
-        <React.Fragment>
+  if (!loading) {
+    switch (user) {
+      case false:
+        sideNavLogin = (
           <li>
-            <Link to="/dashboard">Welcome</Link>
-          </li>
-          <li>
-            <a href="/auth/logout">
-              <i className="fa fa-sign-out" /> Logout
+            <a href="/auth/google" className="btn red darken-1">
+              <i className="fa fa-google left" /> Login with google
             </a>
           </li>
-        </React.Fragment>
-      )
-      
-      sideNavLogin = null
+        )
+        break
+      default:
+        rightNav = (
+          <React.Fragment>
+            <li>
+              <Link to="/dashboard">
+                <img
+                  style={{
+                    height: '35px',
+                    width: '35px',
+                    borderRadius: '50%',
+                    position: 'relative',
+                    margin: '0 5px',
+                    top: '12px',
+                  }}
+                  src={user.image}
+                  alt=""
+                />
+              </Link>
+            </li>
+            <li>
+              <a href="/auth/logout">
+                <i className="fa fa-sign-out" /> Logout
+              </a>
+            </li>
+          </React.Fragment>
+        )
 
-      sideNavItems = (
-        <React.Fragment>
-          <li>
-            <Link to="/dashboard">
-              <i className="fa fa-cog" />
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link to="/stories/my">
-              <i className="fa fa-user" />
-              My Stories
-            </Link>
-          </li>
-          <li>
-            <a href="/auth/logout">
-              <i className="fa fa-sign-out" />
-              Logout
-            </a>
-          </li>
-        </React.Fragment>
-      )
+        sideNavLogin = null
 
-      logoLink = <Link to="/stories" className="brand-logo center">
-      Shary
-    </Link>
+        sideNavItems = (
+          <React.Fragment>
+            <li>
+              <Link to="/dashboard">
+                <i className="fa fa-cog" />
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/stories/my">
+                <i className="fa fa-user" />
+                My Stories
+              </Link>
+            </li>
+            <li>
+              <a href="/auth/logout">
+                <i className="fa fa-sign-out" />
+                Logout
+              </a>
+            </li>
+          </React.Fragment>
+        )
+
+        logoLink = (
+          <Link to="/stories" className="brand-logo center">
+            Shary
+          </Link>
+        )
+    }
   }
 
   return (
@@ -111,7 +128,8 @@ const Header = props => {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  user: state.auth.user,
+  loading: state.auth.loading,
 })
 
 export default connect(

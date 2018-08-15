@@ -46,7 +46,6 @@ class Dashboard extends Component {
                 </Link>
                 <button
                   className="btn red"
-                  style={{ marginLeft: '7px' }}
                   onClick={() => this.props.deleteStory(story._id)}
                 >
                   <i className="fa fa-remove" /> Delete
@@ -70,7 +69,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth,
+  user: state.auth.user,
   myStories: state.stories.myStories,
   loading: state.stories.loading,
 })

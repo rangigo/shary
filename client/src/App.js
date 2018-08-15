@@ -20,8 +20,10 @@ class App extends Component {
   }
 
   render() {
+    const { loading, user } = this.props
+
     // Add button if user is authenticated
-    const addButton = this.props.user ? (
+    const addButton = loading ? (
       <div className="fixed-action-btn">
         <Link to="/stories/new" className="btn-floating btn-large pulse red">
           <i className="fa fa-plus" />
@@ -30,25 +32,27 @@ class App extends Component {
     ) : null
 
     // Restricting routes
-    const routes = this.props.user ? (
-      <Switch>
-        <Route path="/about" component={About} />
-        <Route exact path="/stories" component={Stories} />
-        <Route path="/stories/new" component={NewStory} />
-        <Route path="/stories/edit/:id" component={EditStory} />
-        <Route path="/stories/:id" component={FullStory} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Redirect to="/dashboard" />
-      </Switch>
-    ) : (
-      <Switch>
-        <Route exact path="/stories" component={Stories} />
-        <Redirect from='/stories/edit/:id' to='/stories' />
-        <Route path="/stories/:id" component={FullStory} />
-        <Route exact path="/" component={Welcome} />
-        <Redirect to="/" />
-      </Switch>
-    )
+    const routes = !loading ? (
+      user ? (
+        <Switch>
+          <Route path="/about" component={About} />
+          <Route exact path="/stories" component={Stories} />
+          <Route path="/stories/new" component={NewStory} />
+          <Route path="/stories/edit/:id" component={EditStory} />
+          <Route path="/stories/:id" component={FullStory} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Redirect to="/dashboard" />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path="/stories" component={Stories} />
+          <Redirect from="/stories/edit/:id" to="/stories" />
+          <Route path="/stories/:id" component={FullStory} />
+          <Route exact path="/" component={Welcome} />
+          <Redirect to="/" />
+        </Switch>
+      )
+    ) : null
 
     return (
       <React.Fragment>
@@ -64,7 +68,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth,
+  user: state.auth.user,
+  loading: state.auth.loading,
 })
 
 export default withRouter(

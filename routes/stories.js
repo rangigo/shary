@@ -89,10 +89,8 @@ router.post('/:id/comments', (req, res) => {
     // Add to comments array
     story.comments.unshift(newComment)
 
-    story.save().then(story => {
-      story.populate('comments.commentUser')
-      res.send(story.comments)
-    })
+    story.save()
+    .then(story => res.send(story))
   })
 })
 

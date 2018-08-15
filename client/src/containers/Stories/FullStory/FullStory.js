@@ -6,10 +6,9 @@ import Comments from '../../Comments/Comments'
 import FullComment from '../../../components/FullComment/FullComment'
 import Loader from '../../../components/Loader/Loader'
 import { connect } from 'react-redux'
-import * as actions from '../../../store/actions/index' 
+import * as actions from '../../../store/actions/index'
 
 export class FullStory extends Component {
-
   componentDidMount() {
     if (this.props.match.params.id) {
       this.props.fetchSingleStory(this.props.match.params.id)
@@ -26,15 +25,19 @@ export class FullStory extends Component {
       post = <Loader />
     }
 
-    const { loadStory, err } = this.props
+    const { loadStory, err, loading } = this.props
 
     if (loadStory) {
       const comments = loadStory.allowComments ? (
         <React.Fragment>
           <Comments storyId={this.props.match.params.id} />
-          {loadStory.comments.map(comment => (
-            <FullComment {...comment} key={comment._id} />
-          ))}
+          {loading ? (
+            <Loader />
+          ) : (
+            loadStory.comments.map(comment => (
+              <FullComment {...comment} key={comment._id} />
+            ))
+          )}
         </React.Fragment>
       ) : null
 
@@ -73,9 +76,9 @@ export class FullStory extends Component {
           </div>
         </div>
       )
-    } 
-     
-    if ( err ) {
+    }
+
+    if (err) {
       post = <p>Something wrong!</p>
     }
 
@@ -86,7 +89,10 @@ export class FullStory extends Component {
 const mapStateToProps = state => ({
   loading: state.stories.loading,
   loadStory: state.stories.singleStory,
-  err: state.stories.error
+  err: state.stories.error,
 })
 
-export default connect(mapStateToProps, actions)(FullStory)
+export default connect(
+  mapStateToProps,
+  actions,
+)(FullStory)
