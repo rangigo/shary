@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Input, Row } from 'react-materialize'
-import { Editor } from 'react-draft-wysiwyg'
-import { EditorState, convertToRaw } from 'draft-js'
 import { withRouter } from 'react-router-dom'
-import draftToHtml from 'draftjs-to-html'
 import axios from 'axios'
+import ReactQuill from 'react-quill'
 
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import 'react-quill/dist/quill.snow.css'
 import './NewStory.css'
 
 class NewStory extends Component {
@@ -14,7 +12,6 @@ class NewStory extends Component {
     title: '',
     privacy: 'public',
     allowComments: true,
-    editorState: EditorState.createEmpty(),
     body: '',
   }
 
@@ -31,10 +28,9 @@ class NewStory extends Component {
       })
   }
 
-  editorStateChange = editorState => {
+  quillChange = value => {
     this.setState({
-      editorState,
-      body: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+      body: value,
     })
   }
 
@@ -48,14 +44,14 @@ class NewStory extends Component {
       privacy,
       allowComments,
     }
-    
+
     axios
       .post('/api/stories', newStory)
       .then(res => this.props.history.replace(`/stories/${res.data._id}`))
   }
 
   render() {
-    const { title, allowComments, privacy, editorState } = this.state
+    const { title, allowComments, privacy, body } = this.state
 
     return (
       <div>
@@ -100,16 +96,7 @@ class NewStory extends Component {
 
           <Row>
             <h5 style={{ paddingLeft: '0.75rem' }}>Tell us your Story: </h5>
-            <Editor
-              editorState={editorState}
-              toolbarClassName="toolbar-editor"
-              editorClassName="text-editor"
-              toolbar={{
-                options: ['inline', 'blockType', 'link'],
-              }}
-              stripPastedStyles={true}
-              onEditorStateChange={this.editorStateChange}
-            />
+            <ReactQuill value={body} onChange={this.quillChange} />
           </Row>
 
           <input type="submit" value="Save" className="btn" />

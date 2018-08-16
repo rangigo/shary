@@ -1,25 +1,18 @@
 import React, { Component } from 'react'
 import { Input, Row } from 'react-materialize'
-import { Editor } from 'react-draft-wysiwyg'
-import {
-  EditorState,
-  convertToRaw,
-  convertFromHTML,
-  ContentState,
-} from 'draft-js'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
-import draftToHtml from 'draftjs-to-html'
 import Loader from '../../../components/Loader/Loader'
+import { connect } from 'react-redux'
+import ReactQuill from 'react-quill'
 
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import 'react-quill/dist/quill.snow.css'
 
 class EditStory extends Component {
   state = {
     title: '',
     privacy: 'public',
     allowComments: true,
-    editorState: EditorState.createEmpty(),
     body: '',
     loading: true,
   }
@@ -29,23 +22,20 @@ class EditStory extends Component {
       axios
         .get(`/api/stories/${this.props.match.params.id}`)
         .then(res => {
-          const { title, allowComments, privacy, body } = res.data
+          const { title, allowComments, privacy, body, user } = res.data
 
-          // Create Editor State from html markup
-          const blocksFromHtml = convertFromHTML(body)
-          const state = ContentState.createFromBlockArray(
-            blocksFromHtml.contentBlocks,
-            blocksFromHtml.entityMap,
-          )
-
-          this.setState({
-            title,
-            allowComments,
-            privacy,
-            body,
-            editorState: EditorState.createWithContent(state),
-            loading: false,
-          })
+          // Check for edit permissions
+          if (user._id !== this.props.user._id) {
+            this.props.history.replace('/')
+          } else {
+            this.setState({
+              title,
+              allowComments,
+              privacy,
+              body,
+              loading: false,
+            })
+          }
         })
         .catch(err => console.log(err))
     }
@@ -64,10 +54,9 @@ class EditStory extends Component {
       })
   }
 
-  editorStateChange = editorState => {
+  quillChange = value => {
     this.setState({
-      editorState,
-      body: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+      body: value,
     })
   }
 
@@ -81,17 +70,19 @@ class EditStory extends Component {
       privacy,
       allowComments,
     }
-    // this.props.history.replace(`/stories/${res.data._id}`)
 
-    axios.put(`/api/stories/${this.props.match.params.id}`, updatedStory)
-      .then(res => this.props.history.replace(`/stories/${this.props.match.params.id}`))
+    axios
+      .put(`/api/stories/${this.props.match.params.id}`, updatedStory)
+      .then(res =>
+        this.props.history.replace(`/stories/${this.props.match.params.id}`),
+      )
   }
 
   render() {
-    const { title, allowComments, privacy, editorState, loading } = this.state
+    const { title, allowComments, privacy, body, loading } = this.state
 
     return loading ? (
-      <Loader/>
+      <Loader />
     ) : (
       <div>
         <h1>Edit Story</h1>
@@ -135,16 +126,7 @@ class EditStory extends Component {
 
           <Row>
             <h5 style={{ paddingLeft: '0.75rem' }}>Tell us your Story: </h5>
-            <Editor
-              editorState={editorState}
-              toolbarClassName="toolbar-editor"
-              editorClassName="text-editor"
-              toolbar={{
-                options: ['inline', 'blockType', 'link'],
-              }}
-              stripPastedStyles={true}
-              onEditorStateChange={this.editorStateChange}
-            />
+            <ReactQuill value={body} onChange={this.quillChange} />
           </Row>
 
           <input type="submit" value="Save" className="btn" />
@@ -154,4 +136,11 @@ class EditStory extends Component {
   }
 }
 
-export default withRouter(EditStory)
+const mapStateToProps = state => ({
+  user: state.auth.user,
+})
+
+export default connect(
+  mapStateToProps,
+  null,
+)(withRouter(EditStory))
