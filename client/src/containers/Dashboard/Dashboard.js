@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../store/actions'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../helpers'
 import { withRouter } from 'react-router-dom'
+import Media from 'react-media'
+
 import Loader from '../../components/Loader/Loader'
+import * as actions from '../../store/actions'
+
+import './Dashboard.css'
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -39,16 +43,22 @@ class Dashboard extends Component {
               </td>
               <td>
                 <Link
-                  className="btn left-align"
+                  className="btn res-btn"
                   to={`/stories/edit/${story._id}`}
                 >
-                  <i className="fa fa-pencil" /> Edit
+                  <i className="fa fa-pencil" />
+                  <Media query="(min-width: 769px)">
+                    {matches => (matches ? ' Edit' : null)}
+                  </Media>
                 </Link>
                 <button
                   className="btn red"
                   onClick={() => this.props.deleteStory(story._id)}
                 >
-                  <i className="fa fa-remove" /> Delete
+                  <i className="fa fa-remove" />{' '}
+                  <Media query="(min-width: 769px)">
+                    {matches => (matches ? ' Delete' : null)}
+                  </Media>
                 </button>
               </td>
             </tr>

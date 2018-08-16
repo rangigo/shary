@@ -1,0 +1,11 @@
+.res-btn {
+  margin-right: 5px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 670px) {
+  .res-btn {
+    margin-right: 0;
+    margin-bottom: 5px
+  }
+}

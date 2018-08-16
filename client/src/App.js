@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Route, withRouter, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from './store/actions'
+import Loader from './components/Loader/Loader'
 import './App.css'
 
 import Welcome from './components/Welcome/Welcome'
@@ -13,6 +14,7 @@ import Footer from './components/Footer/Footer'
 import About from './components/About/About'
 import FullStory from './containers/Stories/FullStory/FullStory'
 import EditStory from './containers/Stories/EditStory/EditStory'
+import UserStories  from './containers/Stories/UserStories/UserStories';
 
 class App extends Component {
   componentDidMount() {
@@ -23,7 +25,7 @@ class App extends Component {
     const { loading, user } = this.props
 
     // Add button if user is authenticated
-    const addButton = loading ? (
+    const addButton = !loading && user ? (
       <div className="fixed-action-btn">
         <Link to="/stories/new" className="btn-floating btn-large pulse red">
           <i className="fa fa-plus" />
@@ -39,6 +41,7 @@ class App extends Component {
           <Route exact path="/stories" component={Stories} />
           <Route path="/stories/new" component={NewStory} />
           <Route path="/stories/edit/:id" component={EditStory} />
+          <Route path='/stories/user/:userId' component={UserStories}/>
           <Route path="/stories/:id" component={FullStory} />
           <Route path="/dashboard" component={Dashboard} />
           <Redirect to="/dashboard" />
@@ -46,13 +49,13 @@ class App extends Component {
       ) : (
         <Switch>
           <Route exact path="/stories" component={Stories} />
-          <Redirect from="/stories/edit/:id" to="/stories" />
+          <Route path='/stories/user/:userId' component={UserStories}/>
           <Route path="/stories/:id" component={FullStory} />
           <Route exact path="/" component={Welcome} />
           <Redirect to="/" />
         </Switch>
       )
-    ) : null
+    ) : <Loader />
 
     return (
       <React.Fragment>
