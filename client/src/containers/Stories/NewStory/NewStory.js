@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import ReactQuill from 'react-quill'
 
-import 'react-quill/dist/quill.snow.css'
 import './NewStory.css'
 
 class NewStory extends Component {
@@ -14,6 +13,38 @@ class NewStory extends Component {
     allowComments: true,
     body: '',
   }
+
+  modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+      [{ color: [] }, { background: [] }],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+      ],
+      ['link'],
+      ['clean'],
+    ],
+  }
+
+  formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'code-block',
+    'color',
+    'background',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+  ]
 
   handleChange = e => {
     const { name, value } = e.target
@@ -96,10 +127,15 @@ class NewStory extends Component {
 
           <Row>
             <h5 style={{ paddingLeft: '0.75rem' }}>Tell us your Story: </h5>
-            <ReactQuill value={body} onChange={this.quillChange} />
+            <ReactQuill
+              value={body}
+              onChange={this.quillChange}
+              modules={this.modules}
+              formats={this.formats}
+            />
           </Row>
 
-          <input type="submit" value="Save" className="btn" />
+          <input style={{marginTop: '2.5em'}} type="submit" value="Save" className="btn" />
         </form>
       </div>
     )
