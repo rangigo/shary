@@ -22,7 +22,7 @@ const Story = ({ title, body, user, _id, editable }) => {
           <br />
           <div className="chip">
             <img src={user.image} alt="avatar" />
-            {user.firstName} {user.lastName}
+            <Link to={`/stories/user/${user._id}`}>{user.firstName} {user.lastName}</Link>
           </div>
         </div>
         <div className="card-action center-align">

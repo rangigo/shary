@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import ReactHtmlParser from 'react-html-parser'
+import Parser from 'html-react-parser'
 import { formatDate } from '../../../helpers'
+import { connect } from 'react-redux'
+
 import Comments from '../../Comments/Comments'
 import FullComment from '../../../components/FullComment/FullComment'
 import Loader from '../../../components/Loader/Loader'
-import { connect } from 'react-redux'
 import * as actions from '../../../store/actions/index'
+
+import './FullStory.css'
 
 export class FullStory extends Component {
   componentDidMount() {
@@ -64,11 +67,11 @@ export class FullStory extends Component {
               ) : null}
             </h3>
             <div className="card story">
-              <div className="card-content">
+              <div className="card-content story-content">
                 <span className="card-title">
                   {formatDate(loadStory.date, 'MMMM Do YYYY')}
                 </span>
-                {ReactHtmlParser(loadStory.body)}
+                {Parser(loadStory.body)}
               </div>
             </div>
             {comments}

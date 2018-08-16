@@ -11,6 +11,6 @@ export const truncate = (str, len) => {
   return str
 }
 
-export const stripTags = (str) => str.replace(/<(?:.|\n)*?>/gm, '')
+export const stripTags = (str) => str.replace(/<(?:.|\n)*?>|&nbsp;/gm, '')
 
 export const formatDate = (date, format) => moment(date).format(format)

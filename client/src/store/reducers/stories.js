@@ -49,7 +49,8 @@ export default (state = initState, action) => {
     case actionTypes.CLEAR_SINGLE_STORY:
       return {
         ...state,
-        singleStory: null
+        singleStory: null,
+        error: null
       }
     case actionTypes.DELETE_STORY:
       return {

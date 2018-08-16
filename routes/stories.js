@@ -3,12 +3,11 @@ const mongoose = require('mongoose')
 const router = express.Router()
 
 const Story = mongoose.model('stories')
-const User = mongoose.model('users')
 
 // Get public stories
 router.get('/', (req, res) => {
   Story.find({ privacy: 'public' })
-    .sort({date: 'desc'})
+    .sort({ date: 'desc' })
     .populate('user')
     .then(stories => {
       res.send(stories)
@@ -18,6 +17,17 @@ router.get('/', (req, res) => {
 // Get stories from current user
 router.get('/watashi', (req, res) => {
   Story.find({ user: req.user.id }).then(stories => res.send(stories))
+})
+
+// Get stories from a user
+router.get('/user/:userId', (req, res) => {
+  Story.find({ user: req.params.userId, privacy: 'public' })
+    .populate('user')
+    .then(stories => res.send(stories))
+    .catch(() => {
+      res.status(500)
+      res.send('No results found')
+    })
 })
 
 // Get single story
@@ -89,8 +99,7 @@ router.post('/:id/comments', (req, res) => {
     // Add to comments array
     story.comments.unshift(newComment)
 
-    story.save()
-    .then(story => res.send(story))
+    story.save().then(story => res.send(story))
   })
 })
 
