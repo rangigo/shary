@@ -42,6 +42,7 @@ class App extends Component {
           <Route path="/stories/new" component={NewStory} />
           <Route path="/stories/edit/:id" component={EditStory} />
           <Route path='/stories/user/:userId' component={UserStories}/>
+          <Route path='/stories/my' component={UserStories} />
           <Route path="/stories/:id" component={FullStory} />
           <Route path="/dashboard" component={Dashboard} />
           <Redirect to="/dashboard" />

@@ -23,7 +23,7 @@ export class Stories extends Component {
 
     return (
       <div className="row">
-        <h1 className="center">Stories</h1>
+        <h1 className="center">Public Stories</h1>
         {renderStories}
       </div>
     )

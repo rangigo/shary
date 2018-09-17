@@ -12,13 +12,27 @@ export class UserStories extends Component {
     loading: true,
   }
 
+  _isMounted = false
+
   componentDidMount() {
-    if (this.props.match.params.userId) {
-      axios
-        .get(`/api/stories/user/${this.props.match.params.userId}`)
-        .then(res => this.setState({ stories: res.data, loading: false }))
-        .catch(err => this.setState({ err, loading: false }))
+    this._isMounted = true
+    if (this._isMounted) {
+      if (this.props.match.params.userId) {
+        axios
+          .get(`/api/stories/user/${this.props.match.params.userId}`)
+          .then(res => this.setState({ stories: res.data, loading: false }))
+          .catch(err => this.setState({ err, loading: false }))
+      } else {
+        axios
+          .get(`/api/stories/watashi`)
+          .then(res => this.setState({ stories: res.data, loading: false }))
+          .catch(err => this.setState({ err, loading: false }))
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
@@ -42,7 +56,7 @@ export class UserStories extends Component {
     return loading ? (
       <Loader />
     ) : err ? (
-      <p style={{textAlign: 'center'}}>Something wrong!</p>
+      <p style={{ textAlign: 'center' }}>Something wrong!</p>
     ) : (
       <div className="row">
         <h1 className="center">

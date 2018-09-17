@@ -16,7 +16,9 @@ router.get('/', (req, res) => {
 
 // Get stories from current user
 router.get('/watashi', (req, res) => {
-  Story.find({ user: req.user.id }).then(stories => res.send(stories))
+  Story.find({ user: req.user.id })
+    .populate('user')
+    .then(stories => res.send(stories))
 })
 
 // Get stories from a user
