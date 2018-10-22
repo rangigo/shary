@@ -1,7 +1,7 @@
 # Shary
 A social network platform where you can share your stories.
 
-<img src='https://thumbs.gfycat.com/ImpoliteRaggedAxisdeer-size_restricted.gif' >
+<img src='https://giant.gfycat.com/FatalDesertedDevilfish.gif' >
 
 ## Features
 
